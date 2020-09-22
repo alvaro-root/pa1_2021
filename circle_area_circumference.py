@@ -1,6 +1,6 @@
 # Calculate the area and circumference of a circle
 # 1. Prompt for the radius
-# 2. Apply formualae
+# 2. Apply formulae
 # 3. Print results
 
 import math
