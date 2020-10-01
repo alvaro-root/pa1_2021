@@ -1,9 +1,11 @@
-# while-else 
-# Simple guessing game: start with a random number and  
-# guess with hints until:
-#    guess is  correct
-#    the guess is out of range indicating the user is quitting
-# All non-typed variables are integers: Rule 4
+"""
+while-else
+Simple guessing game: start with a random number and
+guess with hints until:
+   guess is  correct
+   the guess is out of range indicating the user is quitting
+All non-typed variables are integers: Rule 4
+"""
 
 import random  # get the random number module
 
