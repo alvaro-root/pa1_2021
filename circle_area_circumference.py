@@ -1,3 +1,10 @@
+"""
+This is a program to calvulate the area and circumference of a circle.
+
+Mark F.
+Sept 2020
+"""
+
 # Calculate the area and circumference of a circle
 # 1. Prompt for the radius
 # 2. Apply formulae
@@ -7,7 +14,7 @@ import math
 
 radius_str = input("Input radius: ")
 
-radius_float = float(radius_str)
+radius_float = int(radius_str)
 
 circumference = 2 * math.pi * radius_float
 area = math.pi * (radius_float ** 2)
