@@ -8,22 +8,21 @@ All non-typed variables are integers: Rule 4
 """
 
 import random  # get the random number module
-
-number = random.randint(0, 100)  # get a random number
+UPPER_LIMIT = 100  # set an upper limit
+number = random.randint(0, UPPER_LIMIT)  # get a random number
 # between 0 and 100 inclusive
-print("Hi-Lo Number Guessing Game: between 0 and 100 inclusive.")
-print()
+print("Hi-Lo Number Guessing Game: between 0 and 100 inclusive.\n")
 
 # get an initial guess
 guess_str = input("Guess a number: ")
 guess = int(guess_str)  # convert string to number 
 
 # while guess is range, keep asking
-while 0 <= guess <= 100:
+while 0 <= guess <= UPPER_LIMIT:
     if guess > number:
-        print("Guessed Too High.")
+        print(f"Guessed Too High. {guess}")
     elif guess < number:
-        print("Guessed Too Low.")
+        print(f"Guessed Too Low. {guess}")
     else:  # correct guess, exit with break
         print(f"You guessed it. The number was: {number}")
         break
@@ -32,3 +31,4 @@ while 0 <= guess <= 100:
     guess = int(guess_str)
 else:
     print(f"You quit early, the number was: {number}")
+print("Finished.")
