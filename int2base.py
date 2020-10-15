@@ -15,7 +15,7 @@ Written by Mark Foley, October 2012 amended October 2013.
 BASE_DIGITS = '0123456789abcdef'
 
 
-def int2base(my_int, my_base):
+def int_to_base(my_int, my_base):
     ''' This function takes in an integer and a base and converts the integer to the base.
     The result is returned as a string.
     The method is to repeatedly divide the integer by the base and store the remainder.
@@ -40,7 +40,7 @@ def int2base(my_int, my_base):
     return base_str
 
 
-def base2int(base_str, my_base):
+def base_to_int(base_str, my_base):
     ''' This function takes a value in string format and converts it to base 10 (decimal).
     The characters in the string must be in '0123456789abcdef'.
     The method is least significant digit * base^0 + next digit * base^1 ... and so on
@@ -116,7 +116,7 @@ while optionStr != "0":
 
         # The next line is the main event here. This passes your valid source integer and base to the function
         # that actually does the work of converting to the target base
-        my_answer = int2base(my_int, my_base)
+        my_answer = int_to_base(my_int, my_base)
 
         print("Answer is ", my_answer)
 
@@ -140,7 +140,7 @@ while optionStr != "0":
 
         # The next line is the main event here. This passes your valid source string and base to the function
         # that actually does the work of converting the string representation of the source number to the target base
-        my_answer = base2int(base_str, my_base)
+        my_answer = base_to_int(base_str, my_base)
         print("Answer is ", my_answer)
 
     #

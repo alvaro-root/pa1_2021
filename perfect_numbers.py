@@ -1,4 +1,4 @@
-# classify a range of numbers with respect to perfect, adundant or deficient
+# classify a range of numbers with respect to perfect, abundant or deficient
 # unless otherwise stated, variables are assumed to be of type int. Rule 4
 
 top_num_str = input("What is the upper number for the range:")
