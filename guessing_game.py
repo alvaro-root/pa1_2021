@@ -33,5 +33,5 @@ try:
         print(f"You quit early, the number was: {number}")
     print("Finished.")
 except ValueError as e:
-    print(f"{'='*50}\nSomething bad happened!\n{e}\n{'='*50}")
+    print(f"\n{'='*50}\nSomething bad happened!\n{e}\n{'='*50}")
     quit(1)
