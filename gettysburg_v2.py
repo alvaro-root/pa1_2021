@@ -64,57 +64,6 @@ def count_words(speech):
 def main():
     '''Process the speech once you can successfully open both the speech and the stop words files from the net.'''
     try:
-        # The requests get method gives us http header information and the content as a bytes object.
-        speech_response = requests.get(SPEECH_URL)
-        speech_headers = speech_response.headers
-        stopwords_response = requests.get(STOPWORDS_URL)
-        stopwords_headers = stopwords_response.headers
-
-        # We don't know what we're getting. The content-type header might give us a clue. In this example
-        # I'm just going to assume that we can correctly decode utf-8 (the default). I can do this because I know that
-        # the file is just a short 'plain text' speech so I know that there won't be any oddities in there. This
-        # is often a bit of a gamble for, as we know, there is no such thing as 'plain text'.
-
-        # Make a list of lines by splitting on the newline character.
-        speech = speech_response.content.decode().split('\n')
-
-        # Make a tuple of all the stop words while losing the newline character
-        stopwords = tuple(stopwords_response.content.decode().strip().split(','))
-
-        # Make word list from speech while excluding stop words
-        speech = make_word_list(speech, stopwords)
-
-        # Make a set of words from speech which automatically assures that each entry is unique
-        unique = set(word for word in speech)
-
-        # Print the results
-        print("Speech Length: {}".format(len(speech)))
-        print("Unique words: {}".format(len(unique)))
-        print("\nWord count")
-
-        words = count_words(speech)
-
-        print("-" * 50)
-        for k,v in words.items():
-            print(f"{k}: {v},", end=" ")
-        print("\n")
-
-        print("-" * 50)
-        print(f"Request for {SPEECH_URL} returned the following response headers")
-        for k, v in speech_headers.items():
-            print(f"{k}: {v}")
-        print("-"*50)
-        print(f"Request for {STOPWORDS_URL} returned the following response headers")
-        for k, v in stopwords_headers.items():
-            print(f"{k}: {v}")
-
-    except Exception as e:
-        print(f"{e}")
-
-
-def main_v2():
-    '''Process the speech once you can successfully open both the speech and the stop words files from the net.'''
-    try:
         # Make a list of lines by splitting on the newline character.
         speech = get_url(SPEECH_URL)
         speech = speech.split('\n')
@@ -147,5 +96,4 @@ def main_v2():
 
 # Run if stand-alone
 if __name__ == '__main__':
-    # main()
-    main_v2()
+    main()
