@@ -28,6 +28,8 @@ October 2020
 
 import requests
 
+ALLOWED_CONTENT_TYPES = ("application/x-httpd-php", "text/plain", "text/html")
+
 def print_error_and_exit(error, return_code):
     print(f"{'='*50}\nSomething bad happened.\n{error}\n{'='*50}")
     quit(return_code)
@@ -43,7 +45,7 @@ def get_file_from_net(url):
     try:
         response = requests.get(url)
         if 200 <= response.status_code <= 299:
-            if response.headers["Content-Type"] and "text" in response.headers["Content-Type"]:
+            if response.headers["Content-Type"] and response.headers["Content-Type"] in ALLOWED_CONTENT_TYPES:
                 return response.text
             else:
                 raise ValueError(
