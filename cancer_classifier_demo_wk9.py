@@ -61,7 +61,13 @@ def get_data(url):
                 raise ValueError("Empty Record")
             for i in range(1, len(record) - 1):
                 record[i] = int(record[i])
-            cleaned_dataset.append(record)
+            if record[-1] == '2':
+                record[-1] = 'm'
+            elif record[-1] == '4':
+                record[-1] = 'b'
+            else:
+                raise ValueError("b/m status is undefined")
+            cleaned_dataset.append(tuple(record))
         except ValueError as val_err:
             bad_records += 1
             print(f"Record {record[0]} rejected: {val_err}")
@@ -71,10 +77,28 @@ def get_data(url):
 
 
 def create_classifier(training_dataset):
-    pass
+    '''For each record we average the values for each attribute in a list of known benign results and, separately, a
+    list of known malignant results. The benign and malignant averages are then averaged against each other to
+    compute midpoint values. These will be used to compare each attribute in a record and assign it a status -
+    benign or malignant. The overall result is the greater of the number of the benign / malignant status values.
+    '''
+    benign_attributes = [0] * 9
+    malignant_attributes = [0] * 9
+    benign_count = 0
+    malignant_count = 0
+    classifier_mid_points = [0] * 9
+
+    # Compute the totals for each factor
+    for record in training_dataset:
+        pass
 
 
-def test_classifier():
+    return tuple(classifier_mid_points)
+
+
+
+
+def test_classifier(testing_dataset, classifier_mid_points):
     pass
 
 
@@ -87,11 +111,12 @@ def main():
     training_dataset = cleaned_dataset[:int(len(cleaned_dataset) * PERCENT / 100)]
     test_dataset = cleaned_dataset[int(len(cleaned_dataset) * PERCENT / 100):]
 
-    # Create the classifier valuesclassifier_mid_points = create_classifier(training_dataset)
+    # Create the classifier values
+    classifier_mid_points = create_classifier(training_dataset)
 
     # Apply classifier against test file.
     # Given that we know the outcome for each test record we can verify the classifier
-    test_classifier()
+    test_classifier(test_dataset, classifier_mid_points)
 
 
 if __name__ == "__main__":
