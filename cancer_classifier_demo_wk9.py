@@ -11,7 +11,7 @@ The problem is to determine, based on tumour attributes, whether the tumour is b
 699 patients with nine tumour attributes for each as well as a result, determined by an oncologist, stating whether the
 tumour was benign or malignant.
 
-Thus, for each patient, we have 11 data elements - an ID, nine tumour attributes and a result (2 =benign, 4 = malignant).
+Thus, for each patient, we have 11 data elements - an ID, nine tumour attributes and a result (4 =benign, 2 = malignant).
 
 By examining the data, we hope to 'predict' based on the attributes alone whether a tumour is benign or malignant. As we
 already know the result we can check the quality of our algorithm so that we might usefully apply it to data where we
@@ -90,8 +90,29 @@ def create_classifier(training_dataset):
 
     # Compute the totals for each factor
     for record in training_dataset:
-        pass
+        if record[-1] == 'b':
+            benign_count += 1
+            for attribute in range(len(record[1:-1])):
+                benign_attributes[attribute] += record[attribute + 1]
+        elif record[-1] == 'm':
+            malignant_count += 1
+            for attribute in range(len(record[1:-1])):
+                malignant_attributes[attribute] += record[attribute + 1]
 
+    # Compute the average values for each factor
+    for attribute in range(len(benign_attributes)):
+        benign_attributes[attribute] = benign_attributes[attribute] / benign_count
+    for attribute in range(len(malignant_attributes)):
+        malignant_attributes[attribute] = malignant_attributes[attribute] / malignant_count
+
+    # Compute the midpoints - the average of the benign & malignant factors in each case
+    for attribute in range(len(classifier_mid_points)):
+        classifier_mid_points[attribute] = (benign_attributes[attribute] + malignant_attributes[attribute]) / 2
+
+    print(f"Classifier values\n{'-' * 50}")
+    for item in classifier_mid_points:
+        print(f"{item:.4f}", end=", ")
+    print("\n")
 
     return tuple(classifier_mid_points)
 
