@@ -117,10 +117,40 @@ def create_classifier(training_dataset):
     return tuple(classifier_mid_points)
 
 
-
-
 def test_classifier(testing_dataset, classifier_mid_points):
-    pass
+    ''' We apply the classifier list against each record in the test set. We compare each attribute against its
+    equivalent value in the classifier list. Based on this, the attribute gets a status - 'b' or 'm'. The count of
+    the status values for a record determines the result.
+    '''
+    false_count = 0
+    true_count = 0
+    total_count = 0
+
+    temp_result_list = [''] * 11
+    for record in testing_dataset:
+        temp_result_list[0] = record[0]
+        for attribute in range(len(record[1:-1])):
+            if record[attribute + 1] < classifier_mid_points[attribute]:
+                temp_result_list[attribute + 1] = 'm'
+            else:
+                temp_result_list[attribute + 1] = 'b'
+
+        if temp_result_list.count('m') >= 5:
+            temp_result_list[-1] = 'm'
+        else:
+            temp_result_list[-1] = 'b'
+
+        print(temp_result_list, end=' ')
+        total_count += 1
+        if record[-1] == temp_result_list[-1]:
+            true_count += 1
+            print("CORRECT")
+        else:
+            false_count += 1
+            print("FALSE")
+
+    print(f"\nCORRECT: {true_count}, {true_count / total_count:.2%},  INCORRECT: {false_count}, "
+          f"{false_count / total_count:.2%},  TOTAL COUNT: {total_count}")
 
 
 def main():
