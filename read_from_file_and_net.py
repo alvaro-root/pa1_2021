@@ -28,6 +28,8 @@ October 2020
 
 import requests
 
+ALLOWED_CONTENT_TYPES = ("application/x-httpd-php", "text/plain", "text/html")
+
 def print_error_and_exit(error, return_code):
     print(f"{'='*50}\nSomething bad happened.\n{error}\n{'='*50}")
     quit(return_code)
@@ -40,10 +42,11 @@ def get_file_from_net(url):
     :param url: Address of resource to be read
     :return: Text of possible, otherwise throw exception.
     """
+
     try:
         response = requests.get(url)
         if 200 <= response.status_code <= 299:
-            if response.headers["Content-Type"] and "text" in response.headers["Content-Type"]:
+            if response.headers["Content-Type"] and response.headers["Content-Type"] in ALLOWED_CONTENT_TYPES:
                 return response.text
             else:
                 raise ValueError(
@@ -56,6 +59,13 @@ def get_file_from_net(url):
 
 
 def read_any_file(file_name):
+    """
+    Reads any 'text' file - txt, csv, html, json etc.
+
+    :param file_name: relative path to file as str.
+    :return: file contents
+    """
+
     try:
         with open(file_name, "r") as fh:
             data = fh.read()
@@ -68,7 +78,6 @@ def print_content(content):
 
 
 def main():
-    # URL = "https://i.dell.com/is/image/DellContent//content/dam/global-asset-library/Products/Notebooks/XPS/13_9300_non-touch/xs9300nt_cnb_00055lf110_gy.psd?fmt=pjpg&pscan=auto&scl=1&hei=402&wid=719&qlt=95,0&resMode=sharp2&op_usm=1.75,0.3,2,0&size=719,402"
     URL = "https://markfoley.info/pa1/gettysburg.txt"
     FILE = "hnr1.abc"
 
